@@ -11,4 +11,6 @@ game = game.Game()
 
 while game_loop:
     game.main()
+    game.draw()
     game_clock.tick(Constants.CLOCK_TICK)
+    pygame.display.update()
