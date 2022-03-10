@@ -7,6 +7,8 @@ class Colors:
     GREEN = (10, 89, 31)
     WHITE = (255, 255, 255)
     BLUE = (0, 110, 230)
+    BROWN = (137, 50, 3)
+    YELLOW = (255, 195, 0)
 
 
 class Constants:
