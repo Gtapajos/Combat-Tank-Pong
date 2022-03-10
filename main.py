@@ -3,11 +3,10 @@ import game
 from config import game_loop, Constants
 
 
-pygame.init()
-
 # game clock (FPS)
 game_clock = pygame.time.Clock()
 game = game.Game()
+game.menu()
 
 while game_loop:
     game.main()
