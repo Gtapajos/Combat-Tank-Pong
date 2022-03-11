@@ -19,3 +19,4 @@ class Constants:
 # Global variables
 game_loop = True
 win_sound = True
+screen = pygame.display.set_mode(Constants.SCREEN_SIZE)

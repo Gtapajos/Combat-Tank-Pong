@@ -1,9 +1,10 @@
 import pygame
-from config import Constants, Colors
+from config import Constants, Colors, screen
+from tank import Tank1, Tank2
 
 pygame.init()
 # Screen
-screen = pygame.display.set_mode(Constants.SCREEN_SIZE)
+
 pygame.display.set_caption("TANK COMBAT")
 
 pygame.mixer.music.load("sounds/mainscreen_theme.mp3")
@@ -46,7 +47,7 @@ class Game:
                     exit()
 
 
-    def draw(self):
+    def draw_obstacles(self):
         screen.fill(Colors.BROWN)
         pygame.draw.rect(screen, Colors.YELLOW, [0, 70, 15, 630])
         pygame.draw.rect(screen, Colors.YELLOW, [0, 70, 1000, 15])
@@ -74,4 +75,11 @@ class Game:
         pygame.draw.rect(screen, Colors.YELLOW, [830, 255, 34, 15])
         pygame.draw.rect(screen, Colors.YELLOW, [830, 420, 34, 15])
         pygame.draw.rect(screen, Colors.YELLOW, [830, 270, 15, 150])
+
+    def draw_tanks(self):
+        Tank1(90, 324, 35, 35, 3)
+        Tank2(900, 324, 35, 35, 3)
+
+
+
 
