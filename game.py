@@ -1,6 +1,6 @@
 import pygame
 from config import Constants, Colors, screen
-from tank import Tank1, Tank2
+from tank import Tank1, Tank2, Bullet
 
 pygame.init()
 # Screen
@@ -74,6 +74,8 @@ class Game:
                 if event.key == pygame.K_p:
                         self.paused = True
                         pygame.mixer.music.pause()
+                elif event.key == pygame.K_SPACE:
+                        self.lasers.add(Laser(player.rect.center))
 
 
     def draw_obstacles(self):

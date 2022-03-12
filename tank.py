@@ -33,3 +33,20 @@ class Tank2:
             degrees_tk2 -= 3
         if pygame.key.get_pressed()[pygame.K_LEFT]:
             degrees_tk2 += 3
+
+
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, pos):
+        super().__init__()
+        self.bullet = []
+        self.bullet.append(pygame.image.load("img/sprite_shoot.png"))
+        self.image = self.bullet[0]
+        self.image = pygame.transform.scale(self.image, (10, 10))
+        self.rect = self.image.get_rect(center=pos)
+        self.speed_x = 3
+        self.speed_y = 3
+
+        
+    def update(self):
+        self.rect.x += self.speed_x
+        self.rect.y += self.speed_y
