@@ -76,9 +76,11 @@ class Game:
         pygame.draw.rect(screen, Colors.YELLOW, [830, 420, 34, 15])
         pygame.draw.rect(screen, Colors.YELLOW, [830, 270, 15, 150])
 
-    def draw_tanks(self):
-        Tank1(90, 324, 35, 35, 3)
-        Tank2(900, 324, 35, 35, 3)
+    def tanks_draw_move(self):
+        Tank1(3)
+        Tank1.movement(Tank1)
+        Tank2(3)
+        Tank2.movement(Tank2)
 
     def draw_scores(self):
         score_p1 = 0

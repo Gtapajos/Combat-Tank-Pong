@@ -12,7 +12,7 @@ game.menu()
 while game_loop:
     game.main()
     game.draw_obstacles()
-    game.draw_tanks()
+    game.tanks_draw_move()
     game.draw_scores()
     game_clock.tick(Constants.CLOCK_TICK)
     pygame.display.update()
