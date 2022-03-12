@@ -31,6 +31,26 @@ class Tank1:
             print(f"seno: {math.sin(numpy.radians(degrees_tk1))}")
             print(f"degrees: {degrees_tk1}")
 
+    def tank_1_limit(self):
+        global add_y1, add_x1
+
+        # tank 1 collision with the top
+        if add_y1 <= -240:
+            add_y1 = -240
+
+        # tank 1 collision with the bottom
+        if add_y1 >= 320:
+            add_y1 = 320
+
+        # tank 1 collision with the left wall
+        if add_x1 <= -80:
+            add_x1 = -80
+
+        # tank 1 collision with the right wall
+        if add_x1 >= 840:
+            add_x1 = 840
+
+
 
 class Tank2:
 

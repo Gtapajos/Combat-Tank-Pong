@@ -40,6 +40,7 @@ class Game:
             pygame.time.Clock().tick(Constants.CLOCK_TICK)
             pygame.display.update()
 
+
     
     def pause(self):
         while self.paused:
@@ -108,6 +109,7 @@ class Game:
     def tanks_draw_move(self):
         Tank1(3)
         Tank1.movement(Tank1)
+        Tank1.tank_1_limit(Tank1)
         Tank2(3)
         Tank2.movement(Tank2)
 
