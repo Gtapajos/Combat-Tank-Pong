@@ -1,6 +1,5 @@
 import pygame
 import game
-import tank
 from config import game_loop, Constants
 
 
@@ -11,8 +10,9 @@ game.menu()
 
 while game_loop:
     game.main()
+    game.pause()
     game.draw_obstacles()
     game.tanks_draw_move()
-    game.draw_scores()
+    game.draw_scores() 
     game_clock.tick(Constants.CLOCK_TICK)
     pygame.display.update()

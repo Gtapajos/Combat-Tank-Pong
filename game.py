@@ -14,10 +14,11 @@ pygame.mixer.music.play(-1)
 class Game:
 
     def menu(self):
-        font = pygame.font.Font("img/DSEG14Classic-Bold.ttf", 24)
-        play_txt = font.render("Press Enter to Play", True, Colors.BLUE)
-        quit_txt = font.render("Press ESC to Quit", True, Colors.BLUE)
+        self.font = pygame.font.Font("img/DSEG14Classic-Bold.ttf", 24)
+        play_txt = self.font.render("Press Enter to Play", True, Colors.BLUE)
+        quit_txt = self.font.render("Press ESC to Quit", True, Colors.BLUE)
         self.menu_stats = True
+        self.paused = False
 
         while self.menu_stats:
             screen.fill(Colors.WHITE)
@@ -39,12 +40,40 @@ class Game:
             pygame.time.Clock().tick(Constants.CLOCK_TICK)
             pygame.display.update()
 
-
-    def main(self):           
+    
+    def pause(self):
+        while self.paused:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        exit()
+                    if event.key == pygame.K_p:
+                        self.paused = False
+                        pygame.mixer.music.unpause()
+            
+            screen.fill(Colors.BLACK)
+            paused_txt = self.font.render("Press P to Unpaused", True, Colors.GREEN)
+            quit_txt = self.font.render("Press ESC to Quit", True, Colors.GREEN)
+            screen.blit(paused_txt, ((Constants.SCREEN_SIZE[1] / 2) - 30, 300))
+            screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2) - 30, 400))
+
+            pygame.time.Clock().tick(Constants.CLOCK_TICK)
+            pygame.display.update()
+
+
+    def main(self):          
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN:  
+                if event.key == pygame.K_p:
+                        self.paused = True
+                        pygame.mixer.music.pause()
 
 
     def draw_obstacles(self):
