@@ -69,3 +69,23 @@ class Tank2:
         if pygame.key.get_pressed()[pygame.K_UP]:
             add_x2 += 3 * math.cos(numpy.radians(degrees_tk2))
             add_y2 += 3 * (-math.sin(numpy.radians(degrees_tk2)))
+
+
+    def tank_2_limit(self):
+        global add_y2, add_x2
+
+        # tank 1 collision with the bottom
+        if add_y2 <= -315:
+            add_y2 = -315
+
+        # tank 1 collision with the top
+        if add_y2 >= 250:
+            add_y2 = 250
+
+        # tank 1 collision with the right wall
+        if add_x2 <= -50:
+            add_x2 = -50
+
+        # tank 1 collision with the left wall
+        if add_x2 >= 900:
+            add_x2 = 900

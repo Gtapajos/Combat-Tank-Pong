@@ -112,6 +112,7 @@ class Game:
         Tank1.tank_1_limit(Tank1)
         Tank2(3)
         Tank2.movement(Tank2)
+        Tank2.tank_2_limit(Tank2)
 
     def draw_scores(self):
         score_p1 = 0
