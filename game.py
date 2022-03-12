@@ -80,10 +80,14 @@ class Game:
         Tank1(90, 324, 35, 35, 3)
         Tank2(900, 324, 35, 35, 3)
 
-    def score(score):
-        score = 0
-        font = pygame.font.Font("img/DSEG14Classic-Bold.ttf", 24)
-        score_txt = font.render("Score: " + str(score), True, Colors.WHITE)
-        screen.blit(score_txt, (0,0))
+    def draw_scores(self):
+        score_p1 = 0
+        score_p2 = 0
+        font = pygame.font.Font("img/DSEG14Classic-Bold.ttf", 50)
+        score_txt = font.render(str(score_p1), True, Colors.WHITE)
+        screen.blit(score_txt, (250, 10))
+        font = pygame.font.Font("img/DSEG14Classic-Bold.ttf", 50)
+        score_txt = font.render(str(score_p2), True, Colors.WHITE)
+        screen.blit(score_txt, (750, 10))
 
 
