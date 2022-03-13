@@ -52,8 +52,6 @@ class Tank1:
         if add_x1 >= 840:
             add_x1 = 840
 
-
-
 class Tank2:
 
     def __init__(self, velocity):
