@@ -1,5 +1,5 @@
 import pygame
-from config import Colors, Constants, screen
+from config import Colors, Constants, screen, obs_list
 import math
 import numpy
 
@@ -10,17 +10,22 @@ add_x2 = 0
 add_y1 = 0
 add_y2 = 0
 
+image_tk1 = pygame.image.load("img/tank_p1.png")
+rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
+image_tk2 = pygame.image.load("img/tank_p2.png")
+rect_tk2 = image_tk2.get_rect(center=(900 - add_x2, 324 - add_y2))
+
 class Tank1:
 
     def __init__(self, velocity):
+        global rect_tk1
         self.velocity = velocity
-        self.image = pygame.image.load("img/tank_p1.png")
-        self.image = pygame.transform.rotate(pygame.image.load("img/tank_p1.png"), degrees_tk1)
-        screen.blit(self.image, (90 + add_x1, 324 + add_y1))
-        self.rect = self.image.get_rect(center = (90 + add_x1, 324 + add_y1))
-        self.rect.topleft = [self.rect.x, self.rect.y - 18]
+        image_tk1 = pygame.transform.rotate(pygame.image.load("img/tank_p1.png"), degrees_tk1)
+        rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
+        screen.blit(image_tk1, rect_tk1)
 
     def movement(self):
+
         global degrees_tk1, add_x1, add_y1
         if pygame.key.get_pressed()[pygame.K_d]:
             degrees_tk1 -= 3
@@ -29,9 +34,6 @@ class Tank1:
         if pygame.key.get_pressed()[pygame.K_w]:
             add_x1 += 3 * math.cos(numpy.radians(degrees_tk1))
             add_y1 += 3 * (-math.sin(numpy.radians(degrees_tk1)))
-            print(f"cosseno: {math.cos(numpy.radians(degrees_tk1))}")
-            print(f"seno: {math.sin(numpy.radians(degrees_tk1))}")
-            print(f"degrees: {degrees_tk1}")
 
     def tank_1_limit(self):
         global add_y1, add_x1
@@ -52,15 +54,18 @@ class Tank1:
         if add_x1 >= 840:
             add_x1 = 840
 
+        for e in obs_list:
+            if rect_tk1.colliderect(e):
+                print("Tanque 1 colidiu")
+
 class Tank2:
 
     def __init__(self, velocity):
+        global rect_tk2
         self.velocity = velocity
-        self.image = pygame.image.load("img/tank_p2.png")
-        self.image = pygame.transform.rotate(pygame.image.load("img/tank_p2.png"), degrees_tk2)
-        screen.blit(self.image, (900 - add_x2, 324 - add_y2))
-        self.rect = self.image.get_rect(center = (900 - add_x2, 324 - add_y2))
-        self.rect.topleft = [self.rect.x, self.rect.y + 18]
+        image_tk2 = pygame.transform.rotate(pygame.image.load("img/tank_p2.png"), degrees_tk2)
+        rect_tk2 = image_tk2.get_rect(center=(900 - add_x2, 324 - add_y2))
+        screen.blit(image_tk2, rect_tk2)
 
 
     def movement(self):
@@ -92,6 +97,10 @@ class Tank2:
         # tank 1 collision with the left wall
         if add_x2 >= 900:
             add_x2 = 900
+
+        for e in obs_list:
+            if rect_tk2.colliderect(e):
+                print("Tanque 2 colidiu")
 
 
 class Bullet_1(pygame.sprite.Sprite):
