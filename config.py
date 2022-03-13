@@ -4,7 +4,7 @@ import pygame
 # colors class
 class Colors:
     BLACK = (0, 0, 0)
-    GREEN = (10, 89, 31)
+    GREEN = (10, 189, 31)
     WHITE = (255, 255, 255)
     BLUE = (0, 110, 230)
     BROWN = (137, 50, 3)
