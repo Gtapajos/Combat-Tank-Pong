@@ -1,6 +1,6 @@
 import pygame
 from config import Constants, Colors, screen
-from tank import Tank1, Tank2, Bullet
+from tank import Bullet_1, Bullet_2, Tank1, Tank2
 
 pygame.init()
 # Screen
@@ -19,7 +19,8 @@ class Game:
         quit_txt = self.font.render("Press ESC to Quit", True, Colors.WHITE)
         self.menu_stats = True
         self.paused = False
-        self.bullets = pygame.sprite.Group()
+        self.bullets_1 = pygame.sprite.Group()
+        self.bullets_2 = pygame.sprite.Group()
 
         while self.menu_stats:
             screen.fill(Colors.WHITE)
@@ -76,8 +77,10 @@ class Game:
                 if event.key == pygame.K_p:
                     self.paused = True
                     pygame.mixer.music.pause()
-                elif event.key == pygame.K_SPACE:
-                    self.bullets.add(Bullet(Tank2(3).rect.center))
+                elif event.key == pygame.K_e:
+                    self.bullets_2.add(Bullet_2(Tank1(3).rect.center))
+                elif event.key == pygame.K_KP0:
+                    self.bullets_1.add(Bullet_1(Tank2(3).rect.center))
 
 
     def draw_obstacles(self):
@@ -129,7 +132,9 @@ class Game:
 
     # Draw e moviment the bullets
     def draw_bullets(self):
-        self.bullets.draw(screen)
-        self.bullets.update()
+        self.bullets_1.draw(screen)
+        self.bullets_2.draw(screen)
+        self.bullets_1.update()
+        self.bullets_2.update()
 
 

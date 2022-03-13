@@ -17,6 +17,8 @@ class Tank1:
         self.image = pygame.image.load("img/tank_p1.png")
         self.image = pygame.transform.rotate(pygame.image.load("img/tank_p1.png"), degrees_tk1)
         screen.blit(self.image, (90 + add_x1, 324 + add_y1))
+        self.rect = self.image.get_rect(center = (90 + add_x1, 324 + add_y1))
+        self.rect.topleft = [self.rect.x, self.rect.y - 18]
 
     def movement(self):
         global degrees_tk1, add_x1, add_y1
@@ -60,7 +62,7 @@ class Tank2:
         self.image = pygame.transform.rotate(pygame.image.load("img/tank_p2.png"), degrees_tk2)
         screen.blit(self.image, (900 - add_x2, 324 - add_y2))
         self.rect = self.image.get_rect(center = (900 - add_x2, 324 - add_y2))
-        self.rect.topleft = [self.rect.x, self.rect.y]
+        self.rect.topleft = [self.rect.x, self.rect.y + 18]
 
 
     def movement(self):
@@ -94,7 +96,7 @@ class Tank2:
             add_x2 = 900
 
 
-class Bullet(pygame.sprite.Sprite):
+class Bullet_1(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.image = pygame.Surface((5,5))
@@ -106,4 +108,18 @@ class Bullet(pygame.sprite.Sprite):
         
     def update(self):
         self.rect.x -= self.speed_x
+
+
+    
+class Bullet_2(pygame.sprite.Sprite):
+    def __init__(self, pos):
+        super().__init__()
+        self.image = pygame.Surface((5,5))
+        self.image.fill(Colors.WHITE)
+        self.rect = self.image.get_rect(center = pos)
+        self.speed_x = 3
+        self.speed_y = 3
+
+    def update(self):
+        self.rect.x += self.speed_x
 
