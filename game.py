@@ -14,9 +14,9 @@ pygame.mixer.music.play(-1)
 class Game:
 
     def menu(self):
-        self.font = pygame.font.Font("img/DSEG14Classic-Bold.ttf", 24)
-        play_txt = self.font.render("Press Enter to Play", True, Colors.BLUE)
-        quit_txt = self.font.render("Press ESC to Quit", True, Colors.BLUE)
+        self.font = pygame.font.Font("img/upheavtt.ttf", 50)
+        play_txt = self.font.render("Press Enter to Play", True, Colors.WHITE)
+        quit_txt = self.font.render("Press ESC to Quit", True, Colors.WHITE)
         self.menu_stats = True
         self.paused = False
         self.bullets = pygame.sprite.Group()
@@ -25,8 +25,8 @@ class Game:
             screen.fill(Colors.WHITE)
             menu_img = pygame.image.load("img/menu_bg.jpg")
             screen.blit(menu_img, (0, 0))
-            screen.blit(play_txt, ((Constants.SCREEN_SIZE[1] / 2) - 30, 300))
-            screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2) - 30, 400))
+            screen.blit(play_txt, ((Constants.SCREEN_SIZE[1] / 2) - 100, 300))
+            screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2) - 100, 400))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -40,6 +40,7 @@ class Game:
                         self.menu_stats = False
             pygame.time.Clock().tick(Constants.CLOCK_TICK)
             pygame.display.update()
+
 
     
     def pause(self):
@@ -111,17 +112,19 @@ class Game:
     def tanks_draw_move(self):
         Tank1(3)
         Tank1.movement(Tank1)
+        Tank1.tank_1_limit(Tank1)
         Tank2(3)
         Tank2.movement(Tank2)
+        Tank2.tank_2_limit(Tank2)
 
     def draw_scores(self):
         score_p1 = 0
         score_p2 = 0
-        font = pygame.font.Font("img/DSEG14Classic-Bold.ttf", 50)
-        score_txt = font.render(str(score_p1), True, Colors.WHITE)
+        font = pygame.font.Font("img/upheavtt.ttf", 50)
+        score_txt = font.render(str(score_p1), True, Colors.GREEN)
         screen.blit(score_txt, (250, 10))
-        font = pygame.font.Font("img/DSEG14Classic-Bold.ttf", 50)
-        score_txt = font.render(str(score_p2), True, Colors.WHITE)
+        font = pygame.font.Font("img/upheavtt.ttf", 50)
+        score_txt = font.render(str(score_p2), True, Colors.BLUE)
         screen.blit(score_txt, (750, 10))
 
     # Draw e moviment the bullets

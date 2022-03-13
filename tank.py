@@ -31,6 +31,26 @@ class Tank1:
             print(f"seno: {math.sin(numpy.radians(degrees_tk1))}")
             print(f"degrees: {degrees_tk1}")
 
+    def tank_1_limit(self):
+        global add_y1, add_x1
+
+        # tank 1 collision with the top
+        if add_y1 <= -240:
+            add_y1 = -240
+
+        # tank 1 collision with the bottom
+        if add_y1 >= 320:
+            add_y1 = 320
+
+        # tank 1 collision with the left wall
+        if add_x1 <= -80:
+            add_x1 = -80
+
+        # tank 1 collision with the right wall
+        if add_x1 >= 840:
+            add_x1 = 840
+
+
 
 class Tank2:
 
@@ -42,6 +62,7 @@ class Tank2:
         self.rect = self.image.get_rect(center = (900 - add_x2, 324 - add_y2))
         self.rect.topleft = [self.rect.x, self.rect.y]
 
+
     def movement(self):
         global degrees_tk2, add_x2, add_y2
         if pygame.key.get_pressed()[pygame.K_RIGHT]:
@@ -51,6 +72,26 @@ class Tank2:
         if pygame.key.get_pressed()[pygame.K_UP]:
             add_x2 += 3 * math.cos(numpy.radians(degrees_tk2))
             add_y2 += 3 * (-math.sin(numpy.radians(degrees_tk2)))
+
+
+    def tank_2_limit(self):
+        global add_y2, add_x2
+
+        # tank 1 collision with the bottom
+        if add_y2 <= -315:
+            add_y2 = -315
+
+        # tank 1 collision with the top
+        if add_y2 >= 250:
+            add_y2 = 250
+
+        # tank 1 collision with the right wall
+        if add_x2 <= -50:
+            add_x2 = -50
+
+        # tank 1 collision with the left wall
+        if add_x2 >= 900:
+            add_x2 = 900
 
 
 class Bullet(pygame.sprite.Sprite):
@@ -65,6 +106,4 @@ class Bullet(pygame.sprite.Sprite):
         
     def update(self):
         self.rect.x -= self.speed_x
-        self.rect.y -= self.speed_y
-
 
