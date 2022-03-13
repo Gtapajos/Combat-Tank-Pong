@@ -58,6 +58,9 @@ class Tank1:
             if rect_tk1.colliderect(e):
                 print("Tanque 1 colidiu")
 
+        if rect_tk1.colliderect(rect_tk2):
+            print("Tanque 1 colidiu com Tanque 2")
+
 class Tank2:
 
     def __init__(self, velocity):
@@ -102,6 +105,8 @@ class Tank2:
             if rect_tk2.colliderect(e):
                 print("Tanque 2 colidiu")
 
+        if rect_tk2.colliderect(rect_tk1):
+            print("Tanque 2 colidiu com Tanque 1")
 
 class Bullet_1(pygame.sprite.Sprite):
     def __init__(self, pos):
