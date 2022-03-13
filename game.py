@@ -19,6 +19,7 @@ class Game:
         quit_txt = self.font.render("Press ESC to Quit", True, Colors.BLUE)
         self.menu_stats = True
         self.paused = False
+        self.bullets = pygame.sprite.Group()
 
         while self.menu_stats:
             screen.fill(Colors.WHITE)
@@ -72,10 +73,10 @@ class Game:
                 exit()
             if event.type == pygame.KEYDOWN:  
                 if event.key == pygame.K_p:
-                        self.paused = True
-                        pygame.mixer.music.pause()
+                    self.paused = True
+                    pygame.mixer.music.pause()
                 elif event.key == pygame.K_SPACE:
-                        self.lasers.add(Laser(player.rect.center))
+                    self.bullets.add(Bullet(Tank2(3).rect.center))
 
 
     def draw_obstacles(self):
@@ -122,5 +123,10 @@ class Game:
         font = pygame.font.Font("img/DSEG14Classic-Bold.ttf", 50)
         score_txt = font.render(str(score_p2), True, Colors.WHITE)
         screen.blit(score_txt, (750, 10))
+
+    # Draw e moviment the bullets
+    def draw_bullets(self):
+        self.bullets.draw(screen)
+        self.bullets.update()
 
 
