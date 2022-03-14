@@ -11,6 +11,7 @@ add_y1 = 0
 add_y2 = 0
 angle_1 = 1
 angle_2 = 1
+ismoving = False
 
 image_tk1 = pygame.image.load("img/tank_p1.png")
 rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
@@ -32,19 +33,20 @@ class Tank1:
 
     def movement(self):
 
-        global degrees_tk1, add_x1, add_y1, colide1
+        global degrees_tk1, add_x1, add_y1, colide1, ismoving
         if pygame.key.get_pressed()[pygame.K_d]:
             degrees_tk1 -= 3
         if pygame.key.get_pressed()[pygame.K_a]:
             degrees_tk1 += 3
         if pygame.key.get_pressed()[pygame.K_w] and colide1 is False:
+            ismoving = False
             add_x1 += 3 * math.cos(numpy.radians(degrees_tk1))
             add_y1 += 3 * (-math.sin(numpy.radians(degrees_tk1)))
         print(degrees_tk1)
         print(math.cos(numpy.radians(degrees_tk1)))
 
     def tank_1_limit(self):
-        global add_y1, add_x1, colide1, collide
+        global add_y1, add_x1, colide1, collide, ismoving
 
         # tank 1 collision with the top
         if add_y1 <= -240:
@@ -70,25 +72,19 @@ class Tank1:
                 add_y1 += -1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
                 colide1 = False
 
-        if rect_tk1.colliderect(rect_tk2):
+        if rect_tk1.colliderect(rect_tk2) and ismoving is False:
             if abs(rect_tk1.left - rect_tk2.left) < 10:
-                collide = True
-                add_x1 += -1 * 30 * math.cos(numpy.radians(degrees_tk1))
-                add_y1 += -1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
-                collide = False
+                add_x1 += -1 * 12 * math.cos(numpy.radians(degrees_tk1))
+                add_y1 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk1)))
             if abs(rect_tk1.bottom - rect_tk2.top) < 10:
-                collide = True
-
-                collide = False
+                add_x1 += -1 * 12 * math.cos(numpy.radians(degrees_tk1))
+                add_y1 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk1)))
             if abs(rect_tk1.top - rect_tk2.bottom) < 10:
-                collide = True
-
-                collide = False
+                add_x1 += -1 * 12 * math.cos(numpy.radians(degrees_tk1))
+                add_y1 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk1)))
             if abs(rect_tk1.right - rect_tk2.left) < 10:
-                collide = True
-                add_x1 += 1 * 30 * math.cos(numpy.radians(degrees_tk1))
-                add_y1 += 1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
-                collide = False
+                add_x1 += -1 * 12 * math.cos(numpy.radians(degrees_tk1))
+                add_y1 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk1)))
 
 
 class Tank2:
@@ -102,17 +98,18 @@ class Tank2:
         rect_tk2.topleft = [rect_tk2.x + 9, rect_tk2.y + 18]
 
     def movement(self):
-        global degrees_tk2, add_x2, add_y2
+        global degrees_tk2, add_x2, add_y2, ismoving
         if pygame.key.get_pressed()[pygame.K_RIGHT]:
             degrees_tk2 -= 3
         if pygame.key.get_pressed()[pygame.K_LEFT]:
             degrees_tk2 += 3
         if pygame.key.get_pressed()[pygame.K_UP] and colide2 is False:
+            ismoving = True
             add_x2 += 3 * math.cos(numpy.radians(degrees_tk2))
             add_y2 += 3 * (-math.sin(numpy.radians(degrees_tk2)))
 
     def tank_2_limit(self):
-        global add_y2, add_x2, colide2, collide
+        global add_y2, add_x2, colide2, collide, ismoving
 
         # tank 2 collision with the top
         if add_y2 <= -315:
@@ -138,25 +135,20 @@ class Tank2:
                 add_y2 += -1 * 20 * (-math.sin(numpy.radians(degrees_tk2)))
                 colide2 = False
 
-        if rect_tk2.colliderect(rect_tk1):
+        if rect_tk2.colliderect(rect_tk1) and ismoving:
             if abs(rect_tk2.left - rect_tk1.left) < 10:
-                collide = True
-                add_x2 += -1 * 30 * math.cos(numpy.radians(degrees_tk1))
-                add_y2 += -1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
-                collide = False
+                add_x2 += -1 * 12 * math.cos(numpy.radians(degrees_tk2))
+                add_y2 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk2)))
+
             if abs(rect_tk2.bottom - rect_tk1.top) < 10:
-                collide = True
-
-                collide = False
+                add_x2 += -1 * 12 * math.cos(numpy.radians(degrees_tk2))
+                add_y2 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk2)))
             if abs(rect_tk2.top - rect_tk1.bottom) < 10:
-                collide = True
-
-                collide = False
+                add_x2 += -1 * 12 * math.cos(numpy.radians(degrees_tk2))
+                add_y2 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk2)))
             if abs(rect_tk2.right - rect_tk1.left) < 10:
-                collide = True
-                add_x2 += 1 * 30 * math.cos(numpy.radians(degrees_tk1))
-                add_y2 += 1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
-                collide = False
+                add_x2 += -1 * 12 * math.cos(numpy.radians(degrees_tk2))
+                add_y2 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk2)))
 
 
 class Bullet_1(pygame.sprite.Sprite):
