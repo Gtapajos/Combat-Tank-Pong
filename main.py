@@ -15,6 +15,8 @@ while game_loop:
     game.draw_bullets()
     game.tanks_draw_move()
     game.draw_scores()
+    game.collision_bullet_tank_1()
+    game.collision_bullet_tank_2()
     game.destroy_bullets()
     game.cooldown_bullet_1()
     game.cooldown_bullet_2()

@@ -144,9 +144,11 @@ class Bullet_2(pygame.sprite.Sprite):
 def shot_angle_1():
     global angle_1
     angle_1 = degrees_tk1
+    return rect_tk1
 
 
 def shot_angle_2():
     global angle_2
     angle_2 = degrees_tk2
+    return rect_tk2
 
