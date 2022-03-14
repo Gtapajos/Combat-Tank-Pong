@@ -59,3 +59,6 @@ add_x1 = 0
 add_x2 = 0
 add_y1 = 0
 add_y2 = 0
+
+factmulti1 = 1
+factmulti2 = 1

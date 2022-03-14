@@ -1,9 +1,13 @@
 import pygame
 from pygame.locals import *
+
+import tank
 from config import Constants, Colors, screen, obs_1, obs_2, obs_3, obs_4, obs_5, obs_6, obs_7, obs_8, obs_9, obs_10, \
     obs_11, obs_12, obs_13, obs_14, obs_15, obs_16, obs_17, obs_18, obs_19, obs_20, obs_21, obs_22, obs_23, obs_24, \
-    obs_25, obs_26
-from tank import Bullet_1, Bullet_2, Tank1, Tank2, shot_angle_1, shot_angle_2
+    obs_25, obs_26, obs_list, factmulti1, factmulti2
+from tank import Bullet_1, Bullet_2, Tank1, Tank2, shot_angle_1, shot_angle_2, degrees_tk1
+import math
+import numpy
 
 pygame.init()
 # Screen
@@ -78,7 +82,8 @@ class Game:
             pygame.display.update()
 
 
-    def main(self):          
+    def main(self):
+        global factmulti1, factmulti2
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -91,10 +96,12 @@ class Game:
                     self.rect_tk1 = shot_angle_1()
                     self.bullets_2.add(Bullet_2(self.rect_tk1.center))
                     self.cool_down_counter_1 += 1
+                    factmulti1 = 1
                 elif event.key == pygame.K_KP0 and self.cool_down_counter_2 == 0:
                     self.rect_tk2 = shot_angle_2()
                     self.bullets_1.add(Bullet_1(self.rect_tk2.center))
                     self.cool_down_counter_2 += 1
+                    factmulti2 = 1
                 elif event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
@@ -160,24 +167,34 @@ class Game:
 
     # Draw e moviment the bullets
     def draw_bullets(self):
+        global factmulti
         self.bullets_1.draw(screen)
         self.bullets_2.draw(screen)
-        self.bullets_1.update()
-        self.bullets_2.update()
+        self.bullets_1.update(factmulti2)
+        self.bullets_2.update(factmulti1)
 
 
     def collision_bullet_tank_2(self):
+        global factmulti1
         for bullets in self.bullets_2:
             if self.rect_tk2.x - 35 < bullets.rect.x < self.rect_tk2.x + 35 and self.rect_tk2.y < bullets.rect.y + 35 < self.rect_tk2.y + 35:
                 bullets.kill()
                 self.score_p1 += 1
+            for i in obs_list:
+                if i.x < bullets.rect.x < i.x and i.y < bullets.rect.y < i.y:
+                     print(f"Bala 1 colidiu com {i.x} e {i.y}")
+                     factmulti1 = -1
 
     def collision_bullet_tank_1(self):
+        global factmulti2
         for bullets in self.bullets_1:
             if self.rect_tk1.x - 35 < bullets.rect.x < self.rect_tk1.x + 35 and self.rect_tk1.y < bullets.rect.y + 35 < self.rect_tk1.y + 35:
                 bullets.kill()
                 self.score_p2 += 1
-
+            for i in obs_list:
+                if i.x < bullets.rect.x < i.x and i.y < bullets.rect.y < i.y:
+                     print(f"Bala 2 colidiu com {i.x} e {i.y}")
+                     factmulti2 = -1
 
     # Function to destroy bullets that pass the screen
     def destroy_bullets(self):

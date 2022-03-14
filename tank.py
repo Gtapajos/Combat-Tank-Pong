@@ -42,8 +42,6 @@ class Tank1:
             ismoving = False
             add_x1 += 3 * math.cos(numpy.radians(degrees_tk1))
             add_y1 += 3 * (-math.sin(numpy.radians(degrees_tk1)))
-        print(degrees_tk1)
-        print(math.cos(numpy.radians(degrees_tk1)))
 
     def tank_1_limit(self):
         global add_y1, add_x1, colide1, collide, ismoving
@@ -66,7 +64,6 @@ class Tank1:
 
         for e in obs_list:
             if rect_tk1.colliderect(e):
-                print("está colidindo")
                 colide1 = True
                 add_x1 += -1 * 15 * math.cos(numpy.radians(degrees_tk1))
                 add_y1 += -1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
@@ -129,7 +126,6 @@ class Tank2:
 
         for e in obs_list:
             if rect_tk2.colliderect(e):
-                print("está colidindo")
                 colide2 = True
                 add_x2 += -1 * 15 * math.cos(numpy.radians(degrees_tk2))
                 add_y2 += -1 * 20 * (-math.sin(numpy.radians(degrees_tk2)))
@@ -160,9 +156,9 @@ class Bullet_1(pygame.sprite.Sprite):
         self.speed_x = 3
         self.speed_y = 3
 
-    def update(self):
-        self.rect.x -= self.speed_x * math.cos(numpy.radians(angle_2))
-        self.rect.y -= self.speed_y * (-math.sin(numpy.radians(angle_2)))
+    def update(self, factmulti):
+        self.rect.x -= self.speed_x * math.cos(numpy.radians(angle_2)) * factmulti
+        self.rect.y -= self.speed_y * (-math.sin(numpy.radians(angle_2))) * factmulti
 
 
 class Bullet_2(pygame.sprite.Sprite):
@@ -174,9 +170,9 @@ class Bullet_2(pygame.sprite.Sprite):
         self.speed_x = 3
         self.speed_y = 3
 
-    def update(self):
-        self.rect.x += self.speed_x * math.cos(numpy.radians(angle_1))
-        self.rect.y += self.speed_y * (-math.sin(numpy.radians(angle_1)))
+    def update(self, factmulti):
+        self.rect.x += self.speed_x * math.cos(numpy.radians(angle_1)) * factmulti
+        self.rect.y += self.speed_y * (-math.sin(numpy.radians(angle_1))) * factmulti
 
 
 def shot_angle_1():
