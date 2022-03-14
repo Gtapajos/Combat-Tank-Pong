@@ -180,11 +180,20 @@ class Game:
             if self.rect_tk2.x - 25 < bullets.rect.x < self.rect_tk2.x + 25 and self.rect_tk2.y < bullets.rect.y + 25 < self.rect_tk2.y + 25:
                 bullets.kill()
                 self.score_p1 += 1
-            for i in obs_list:
-                if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
-                        math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
-                        math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
-                    factmulti1 *= -1
+            elif bullets.rect.y <= 110:
+                factmulti1 *= -1
+            elif bullets.rect.x <= 40:
+                factmulti1 *= -1
+            elif bullets.rect.x >= 970:
+                factmulti1 *= -1
+            elif bullets.rect.y >= 680:
+                factmulti1 *= -1
+            else:
+                for i in obs_list:
+                    if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
+                            math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
+                            math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
+                        factmulti1 *= -1
 
     def collision_bullet_tank_1(self):
         global factmulti2
@@ -193,11 +202,20 @@ class Game:
                 bullets.kill()
                 self.score_p2 += 1
                 #Tank1.rot_1(Tank1)
-            for i in obs_list:
-                if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
-                        math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
-                        math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
-                    factmulti2 *= -1
+            elif bullets.rect.y <= 110:
+                factmulti2 *= -1
+            elif bullets.rect.x <= 40:
+                factmulti2 *= -1
+            elif bullets.rect.x >= 970:
+                factmulti2 *= -1
+            elif bullets.rect.y >= 680:
+                factmulti2 *= -1
+            else:
+                for i in obs_list:
+                    if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
+                            math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
+                            math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
+                        factmulti2 *= -1
 
     # Function to destroy bullets that pass the screen
     def destroy_bullets(self):
