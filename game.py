@@ -3,7 +3,7 @@ from pygame.locals import *
 from config import Constants, Colors, screen, obs_1, obs_2, obs_3, obs_4, obs_5, obs_6, obs_7, obs_8, obs_9, obs_10, \
     obs_11, obs_12, obs_13, obs_14, obs_15, obs_16, obs_17, obs_18, obs_19, obs_20, obs_21, obs_22, obs_23, obs_24, \
     obs_25, obs_26
-from tank import Bullet_1, Bullet_2, Tank1, Tank2, rect_tk1, rect_tk2, shot_angle_1, shot_angle_2
+from tank import Bullet_1, Bullet_2, Tank1, Tank2, shot_angle_1, shot_angle_2
 
 pygame.init()
 # Screen
@@ -95,7 +95,9 @@ class Game:
                     self.rect_tk2 = shot_angle_2()
                     self.bullets_1.add(Bullet_1(self.rect_tk2.center))
                     self.cool_down_counter_2 += 1
-
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    exit()
 
     def draw_obstacles(self):
         screen.fill(Colors.BROWN)
@@ -143,6 +145,18 @@ class Game:
         font = pygame.font.Font("img/upheavtt.ttf", 50)
         score_txt = font.render(str(self.score_p2), True, Colors.BLUE)
         screen.blit(score_txt, (750, 10))
+
+        quit_txt = self.font.render("Press ESC to Quit", True, Colors.GREEN)
+
+        if self.score_p1 >= 1:
+            victory1_img = pygame.image.load("img/p1win.png")
+            screen.blit(victory1_img, (375, 225))
+            screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2 - 45), 600))
+
+        elif self.score_p2 >= 1:
+            victory2_img = pygame.image.load("img/p2win.png")
+            screen.blit(victory2_img, (375, 225))
+            screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2 - 45), 600))
 
     # Draw e moviment the bullets
     def draw_bullets(self):
