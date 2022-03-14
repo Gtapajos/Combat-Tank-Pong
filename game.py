@@ -14,8 +14,8 @@ pygame.init()
 
 pygame.display.set_caption("TANK COMBAT")
 
-# pygame.mixer.music.load("sounds/mainscreen_theme.mp3")
-#pygame.mixer.music.play(-1)
+pygame.mixer.music.load("sounds/mainscreen_theme.mp3")
+pygame.mixer.music.play(-1)
 
 
 
@@ -93,13 +93,19 @@ class Game:
                     self.paused = True
                     pygame.mixer.music.pause()
                 elif event.key == pygame.K_e and self.cool_down_counter_1 == 0:
+                    sounds = pygame.mixer.Sound("sounds/tankshoot.wav")
+                    sounds.play()
                     self.rect_tk1 = shot_angle_1()
                     self.bullets_2.add(Bullet_2(self.rect_tk1.center))
+                    self.colision_1 = 0
                     self.cool_down_counter_1 += 1
                     factmulti1 = 1
                 elif event.key == pygame.K_KP0 and self.cool_down_counter_2 == 0:
+                    sounds = pygame.mixer.Sound("sounds/tankshoot.wav")
+                    sounds.play()
                     self.rect_tk2 = shot_angle_2()
                     self.bullets_1.add(Bullet_1(self.rect_tk2.center))
+                    self.colision_2 = 0
                     self.cool_down_counter_2 += 1
                     factmulti2 = 1
                 elif event.key == pygame.K_ESCAPE:
@@ -182,18 +188,26 @@ class Game:
                 self.score_p1 += 1
             elif bullets.rect.y <= 110:
                 factmulti1 *= -1
+                self.colision_1 += 1
             elif bullets.rect.x <= 40:
                 factmulti1 *= -1
+                self.colision_1 += 1
             elif bullets.rect.x >= 970:
                 factmulti1 *= -1
+                self.colision_1 += 1
             elif bullets.rect.y >= 680:
                 factmulti1 *= -1
+                self.colision_1 += 1
             else:
                 for i in obs_list:
                     if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
                             math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
                             math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
                         factmulti1 *= -1
+                        self.colision_1 += 1
+            
+            if self.colision_1 == 5:
+                bullets.kill()
 
     def collision_bullet_tank_1(self):
         global factmulti2
@@ -204,18 +218,25 @@ class Game:
                 #Tank1.rot_1(Tank1)
             elif bullets.rect.y <= 110:
                 factmulti2 *= -1
+                self.colision_2 += 1
             elif bullets.rect.x <= 40:
                 factmulti2 *= -1
+                self.colision_2 += 1
             elif bullets.rect.x >= 970:
                 factmulti2 *= -1
+                self.colision_2 += 1
             elif bullets.rect.y >= 680:
                 factmulti2 *= -1
+                self.colision_2 += 1
             else:
                 for i in obs_list:
                     if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
                             math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
                             math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
                         factmulti2 *= -1
+                        self.colision_2 += 1
+            if self.colision_2 == 5:
+                bullets.kill()
 
     # Function to destroy bullets that pass the screen
     def destroy_bullets(self):
