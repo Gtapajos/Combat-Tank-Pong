@@ -2,10 +2,49 @@ import pygame
 from pygame.locals import *
 
 import tank
-from config import Constants, Colors, screen, obs_1, obs_2, obs_3, obs_4, obs_5, obs_6, obs_7, obs_8, obs_9, obs_10, \
-    obs_11, obs_12, obs_13, obs_14, obs_15, obs_16, obs_17, obs_18, obs_19, obs_20, obs_21, obs_22, obs_23, obs_24, \
-    obs_25, obs_26, obs_list, factmulti1, factmulti2
-from tank import Bullet_1, Bullet_2, Tank1, Tank2, shot_angle_1, shot_angle_2, degrees_tk1
+from config import (
+    Constants,
+    Colors,
+    screen,
+    obs_1,
+    obs_2,
+    obs_3,
+    obs_4,
+    obs_5,
+    obs_6,
+    obs_7,
+    obs_8,
+    obs_9,
+    obs_10,
+    obs_11,
+    obs_12,
+    obs_13,
+    obs_14,
+    obs_15,
+    obs_16,
+    obs_17,
+    obs_18,
+    obs_19,
+    obs_20,
+    obs_21,
+    obs_22,
+    obs_23,
+    obs_24,
+    obs_25,
+    obs_26,
+    obs_list,
+    factmulti1,
+    factmulti2,
+)
+from tank import (
+    Bullet_1,
+    Bullet_2,
+    Tank1,
+    Tank2,
+    shot_angle_1,
+    shot_angle_2,
+    degrees_tk1,
+)
 import math
 import numpy
 
@@ -18,9 +57,7 @@ pygame.mixer.music.load("sounds/mainscreen_theme.mp3")
 pygame.mixer.music.play(-1)
 
 
-
 class Game:
-
     def menu(self):
         self.font = pygame.font.Font("img/upheavtt.ttf", 50)
         play_txt = self.font.render("Press Enter to Play", True, Colors.WHITE)
@@ -56,8 +93,6 @@ class Game:
             pygame.time.Clock().tick(Constants.CLOCK_TICK)
             pygame.display.update()
 
-
-    
     def pause(self):
         while self.paused:
             for event in pygame.event.get():
@@ -71,16 +106,19 @@ class Game:
                     if event.key == pygame.K_p:
                         self.paused = False
                         pygame.mixer.music.unpause()
-            
+
             screen.fill(Colors.BLACK)
-            paused_txt = self.font.render("Press P to Unpaused", True, Colors.GREEN)
-            quit_txt = self.font.render("Press ESC to Quit", True, Colors.GREEN)
+            paused_txt = self.font.render(
+                "Press P to Unpaused", True, Colors.GREEN
+            )
+            quit_txt = self.font.render(
+                "Press ESC to Quit", True, Colors.GREEN
+            )
             screen.blit(paused_txt, ((Constants.SCREEN_SIZE[1] / 2) - 30, 300))
             screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2) - 30, 400))
 
             pygame.time.Clock().tick(Constants.CLOCK_TICK)
             pygame.display.update()
-
 
     def main(self):
         global factmulti1, factmulti2
@@ -88,7 +126,7 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            if event.type == pygame.KEYDOWN:  
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
                     self.paused = True
                     pygame.mixer.music.pause()
@@ -100,7 +138,9 @@ class Game:
                     self.colision_1 = 0
                     self.cool_down_counter_1 += 1
                     factmulti1 = 1
-                elif event.key == pygame.K_KP0 and self.cool_down_counter_2 == 0:
+                elif (
+                    event.key == pygame.K_KP0 and self.cool_down_counter_2 == 0
+                ):
                     sounds = pygame.mixer.Sound("sounds/tankshoot.wav")
                     sounds.play()
                     self.rect_tk2 = shot_angle_2()
@@ -142,7 +182,6 @@ class Game:
         pygame.draw.rect(screen, Colors.YELLOW, obs_25)
         pygame.draw.rect(screen, Colors.YELLOW, obs_26)
 
-
     def tanks_draw_move(self):
         Tank1(3)
         Tank1.movement(Tank1)
@@ -179,11 +218,15 @@ class Game:
         self.bullets_1.update(factmulti2)
         self.bullets_2.update(factmulti1)
 
-
     def collision_bullet_tank_2(self):
         global factmulti1
         for bullets in self.bullets_2:
-            if self.rect_tk2.x - 25 < bullets.rect.x < self.rect_tk2.x + 25 and self.rect_tk2.y < bullets.rect.y + 25 < self.rect_tk2.y + 25:
+            if (
+                self.rect_tk2.x - 25 < bullets.rect.x < self.rect_tk2.x + 25
+                and self.rect_tk2.y
+                < bullets.rect.y + 25
+                < self.rect_tk2.y + 25
+            ):
                 bullets.kill()
                 self.score_p1 += 1
             elif bullets.rect.y <= 110:
@@ -200,22 +243,41 @@ class Game:
                 self.colision_1 += 1
             else:
                 for i in obs_list:
-                    if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
-                            math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
-                            math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
+                    if (
+                        math.sqrt(
+                            (i.x + (i.w / 2) - bullets.rect.x) ** 2
+                            + (i.y + (i.h / 2) - bullets.rect.y) ** 2
+                        )
+                        <= 20
+                        or math.sqrt(
+                            (i.x + (i.w) - bullets.rect.x) ** 2
+                            + (i.y + (i.h) - bullets.rect.y) ** 2
+                        )
+                        <= 20
+                        or math.sqrt(
+                            (i.x - bullets.rect.x) ** 2
+                            + (i.y - bullets.rect.y) ** 2
+                        )
+                        <= 20
+                    ):
                         factmulti1 *= -1
                         self.colision_1 += 1
-            
+
             if self.colision_1 == 5:
                 bullets.kill()
 
     def collision_bullet_tank_1(self):
         global factmulti2
         for bullets in self.bullets_1:
-            if self.rect_tk1.x - 25 < bullets.rect.x < self.rect_tk1.x + 25 and self.rect_tk1.y < bullets.rect.y + 25 < self.rect_tk1.y + 25:
+            if (
+                self.rect_tk1.x - 25 < bullets.rect.x < self.rect_tk1.x + 25
+                and self.rect_tk1.y
+                < bullets.rect.y + 25
+                < self.rect_tk1.y + 25
+            ):
                 bullets.kill()
                 self.score_p2 += 1
-                #Tank1.rot_1(Tank1)
+                # Tank1.rot_1(Tank1)
             elif bullets.rect.y <= 110:
                 factmulti2 *= -1
                 self.colision_2 += 1
@@ -230,9 +292,23 @@ class Game:
                 self.colision_2 += 1
             else:
                 for i in obs_list:
-                    if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
-                            math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
-                            math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
+                    if (
+                        math.sqrt(
+                            (i.x + (i.w / 2) - bullets.rect.x) ** 2
+                            + (i.y + (i.h / 2) - bullets.rect.y) ** 2
+                        )
+                        <= 20
+                        or math.sqrt(
+                            (i.x + (i.w) - bullets.rect.x) ** 2
+                            + (i.y + (i.h) - bullets.rect.y) ** 2
+                        )
+                        <= 20
+                        or math.sqrt(
+                            (i.x - bullets.rect.x) ** 2
+                            + (i.y - bullets.rect.y) ** 2
+                        )
+                        <= 20
+                    ):
                         factmulti2 *= -1
                         self.colision_2 += 1
             if self.colision_2 == 5:
@@ -260,5 +336,3 @@ class Game:
             self.cool_down_counter_2 = 0
         elif self.cool_down_counter_2 > 0:
             self.cool_down_counter_2 += 1
-
-

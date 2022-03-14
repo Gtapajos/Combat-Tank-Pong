@@ -50,8 +50,36 @@ obs_24 = Rect(830, 255, 34, 15)
 obs_25 = Rect(830, 420, 34, 15)
 obs_26 = Rect(830, 270, 15, 150)
 
-obs_list = [obs_1, obs_2, obs_3, obs_4, obs_4, obs_5, obs_6, obs_7, obs_8, obs_9, obs_9, obs_10, obs_11, obs_12, obs_13,
-            obs_14, obs_15, obs_16, obs_17, obs_18, obs_19, obs_20, obs_21, obs_22, obs_23, obs_24, obs_25, obs_26]
+obs_list = [
+    obs_1,
+    obs_2,
+    obs_3,
+    obs_4,
+    obs_4,
+    obs_5,
+    obs_6,
+    obs_7,
+    obs_8,
+    obs_9,
+    obs_9,
+    obs_10,
+    obs_11,
+    obs_12,
+    obs_13,
+    obs_14,
+    obs_15,
+    obs_16,
+    obs_17,
+    obs_18,
+    obs_19,
+    obs_20,
+    obs_21,
+    obs_22,
+    obs_23,
+    obs_24,
+    obs_25,
+    obs_26,
+]
 
 degrees_tk1 = 0
 degrees_tk2 = 0
