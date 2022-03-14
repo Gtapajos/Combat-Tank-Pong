@@ -155,12 +155,12 @@ class Game:
 
         quit_txt = self.font.render("Press ESC to Quit", True, Colors.GREEN)
 
-        if self.score_p1 >= 1:
+        if self.score_p1 >= 5:
             victory1_img = pygame.image.load("img/p1win.png")
             screen.blit(victory1_img, (375, 225))
             screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2 - 45), 600))
 
-        elif self.score_p2 >= 1:
+        elif self.score_p2 >= 5:
             victory2_img = pygame.image.load("img/p2win.png")
             screen.blit(victory2_img, (375, 225))
             screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2 - 45), 600))
