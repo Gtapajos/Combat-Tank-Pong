@@ -84,6 +84,11 @@ class Tank1:
                 collide = True
 
                 collide = False
+            if abs(rect_tk1.right - rect_tk2.left) < 10:
+                collide = True
+                add_x1 += 1 * 30 * math.cos(numpy.radians(degrees_tk1))
+                add_y1 += 1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
+                collide = False
 
 
 class Tank2:
@@ -146,6 +151,11 @@ class Tank2:
             if abs(rect_tk2.top - rect_tk1.bottom) < 10:
                 collide = True
 
+                collide = False
+            if abs(rect_tk2.right - rect_tk1.left) < 10:
+                collide = True
+                add_x2 += 1 * 30 * math.cos(numpy.radians(degrees_tk1))
+                add_y2 += 1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
                 collide = False
 
 
