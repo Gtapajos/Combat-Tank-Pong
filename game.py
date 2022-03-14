@@ -10,8 +10,8 @@ pygame.init()
 
 pygame.display.set_caption("TANK COMBAT")
 
-pygame.mixer.music.load("sounds/mainscreen_theme.mp3")
-pygame.mixer.music.play(-1)
+# pygame.mixer.music.load("sounds/mainscreen_theme.mp3")
+#pygame.mixer.music.play(-1)
 
 
 

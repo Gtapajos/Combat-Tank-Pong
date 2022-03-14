@@ -44,7 +44,7 @@ class Tank1:
         print(math.cos(numpy.radians(degrees_tk1)))
 
     def tank_1_limit(self):
-        global add_y1, add_x1, colide1
+        global add_y1, add_x1, colide1, collide
 
         # tank 1 collision with the top
         if add_y1 <= -240:
@@ -71,7 +71,19 @@ class Tank1:
                 colide1 = False
 
         if rect_tk1.colliderect(rect_tk2):
-            print("Tanque 1 colidiu com Tanque 2")
+            if abs(rect_tk1.left - rect_tk2.left) < 10:
+                collide = True
+                add_x1 += -1 * 30 * math.cos(numpy.radians(degrees_tk1))
+                add_y1 += -1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
+                collide = False
+            if abs(rect_tk1.bottom - rect_tk2.top) < 10:
+                collide = True
+
+                collide = False
+            if abs(rect_tk1.top - rect_tk2.bottom) < 10:
+                collide = True
+
+                collide = False
 
 
 class Tank2:
@@ -95,7 +107,7 @@ class Tank2:
             add_y2 += 3 * (-math.sin(numpy.radians(degrees_tk2)))
 
     def tank_2_limit(self):
-        global add_y2, add_x2, colide2
+        global add_y2, add_x2, colide2, collide
 
         # tank 2 collision with the top
         if add_y2 <= -315:
@@ -122,7 +134,19 @@ class Tank2:
                 colide2 = False
 
         if rect_tk2.colliderect(rect_tk1):
-            print("Tanque 2 colidiu com Tanque 1")
+            if abs(rect_tk2.left - rect_tk1.left) < 10:
+                collide = True
+                add_x2 += -1 * 30 * math.cos(numpy.radians(degrees_tk1))
+                add_y2 += -1 * 20 * (-math.sin(numpy.radians(degrees_tk1)))
+                collide = False
+            if abs(rect_tk2.bottom - rect_tk1.top) < 10:
+                collide = True
+
+                collide = False
+            if abs(rect_tk2.top - rect_tk1.bottom) < 10:
+                collide = True
+
+                collide = False
 
 
 class Bullet_1(pygame.sprite.Sprite):
