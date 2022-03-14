@@ -3,7 +3,7 @@ from pygame.locals import *
 from config import Constants, Colors, screen, obs_1, obs_2, obs_3, obs_4, obs_5, obs_6, obs_7, obs_8, obs_9, obs_10, \
     obs_11, obs_12, obs_13, obs_14, obs_15, obs_16, obs_17, obs_18, obs_19, obs_20, obs_21, obs_22, obs_23, obs_24, \
     obs_25, obs_26
-from tank import Bullet_1, Bullet_2, Tank1, Tank2
+from tank import Bullet_1, Bullet_2, Tank1, Tank2, rect_tk1, rect_tk2, shot_angle_1, shot_angle_2
 
 pygame.init()
 # Screen
@@ -25,6 +25,8 @@ class Game:
         self.paused = False
         self.bullets_1 = pygame.sprite.Group()
         self.bullets_2 = pygame.sprite.Group()
+        self.cool_down_counter_1 = 0
+        self.cool_down_counter_2 = 0
 
         while self.menu_stats:
             screen.fill(Colors.WHITE)
@@ -81,10 +83,14 @@ class Game:
                 if event.key == pygame.K_p:
                     self.paused = True
                     pygame.mixer.music.pause()
-                elif event.key == pygame.K_e:
-                    self.bullets_2.add(Bullet_2(Tank1(3).rect.center))
-                elif event.key == pygame.K_KP0:
-                    self.bullets_1.add(Bullet_1(Tank2(3).rect.center))
+                elif event.key == pygame.K_e and self.cool_down_counter_1 == 0:
+                    self.bullets_2.add(Bullet_2(rect_tk1.center))
+                    shot_angle_1()
+                    self.cool_down_counter_1 += 1
+                elif event.key == pygame.K_KP0 and self.cool_down_counter_2 == 0:
+                    self.bullets_1.add(Bullet_1(rect_tk2.center))
+                    shot_angle_2()
+                    self.cool_down_counter_2 += 1
 
 
     def draw_obstacles(self):
@@ -142,5 +148,29 @@ class Game:
         self.bullets_2.draw(screen)
         self.bullets_1.update()
         self.bullets_2.update()
+
+
+    # Function to destroy bullets that pass the screen
+    def destroy_bullets(self):
+        for bullets in self.bullets_1:
+            if bullets.rect.y > 900 or bullets.rect.y < 50:
+                bullets.kill()
+        for bullets in self.bullets_2:
+            if bullets.rect.y > 900 or bullets.rect.y < 50:
+                bullets.kill()
+
+    # Shots cooldown function
+
+    def cooldown_bullet_1(self):
+        if self.cool_down_counter_1 >= Constants.COOLDOWN_SHOT:
+            self.cool_down_counter_1 = 0
+        elif self.cool_down_counter_1 > 0:
+            self.cool_down_counter_1 += 1
+
+    def cooldown_bullet_2(self):
+        if self.cool_down_counter_2 >= Constants.COOLDOWN_SHOT:
+            self.cool_down_counter_2 = 0
+        elif self.cool_down_counter_2 > 0:
+            self.cool_down_counter_2 += 1
 
 

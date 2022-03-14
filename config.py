@@ -15,6 +15,7 @@ class Colors:
 class Constants:
     CLOCK_TICK = 60
     SCREEN_SIZE = (1000, 700)
+    COOLDOWN_SHOT = 150
 
 
 # Global variables

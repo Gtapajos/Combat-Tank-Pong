@@ -9,6 +9,8 @@ add_x1 = 0
 add_x2 = 0
 add_y1 = 0
 add_y2 = 0
+angle_1 = 1
+angle_2 = 1
 
 image_tk1 = pygame.image.load("img/tank_p1.png")
 rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
@@ -23,6 +25,7 @@ class Tank1:
         image_tk1 = pygame.transform.rotate(pygame.image.load("img/tank_p1.png"), degrees_tk1)
         rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
         screen.blit(image_tk1, rect_tk1)
+        rect_tk1.topleft = [rect_tk1.x  + 18, rect_tk1.y + 18]
 
     def movement(self):
 
@@ -69,7 +72,7 @@ class Tank2:
         image_tk2 = pygame.transform.rotate(pygame.image.load("img/tank_p2.png"), degrees_tk2)
         rect_tk2 = image_tk2.get_rect(center=(900 - add_x2, 324 - add_y2))
         screen.blit(image_tk2, rect_tk2)
-
+        rect_tk2.topleft = [rect_tk2.x + 9, rect_tk2.y + 18]
 
     def movement(self):
         global degrees_tk2, add_x2, add_y2
@@ -119,7 +122,8 @@ class Bullet_1(pygame.sprite.Sprite):
 
         
     def update(self):
-        self.rect.x -= self.speed_x
+        self.rect.x -= self.speed_x * math.cos(numpy.radians(angle_2))
+        self.rect.y -= self.speed_y * (-math.sin(numpy.radians(angle_2)))
 
 
     
@@ -133,5 +137,16 @@ class Bullet_2(pygame.sprite.Sprite):
         self.speed_y = 3
 
     def update(self):
-        self.rect.x += self.speed_x
+        self.rect.x += self.speed_x * math.cos(numpy.radians(angle_1))
+        self.rect.y += self.speed_y * (-math.sin(numpy.radians(angle_1)))
+
+
+def shot_angle_1():
+    global angle_1
+    angle_1 = degrees_tk1
+
+
+def shot_angle_2():
+    global angle_2
+    angle_2 = degrees_tk2
 
