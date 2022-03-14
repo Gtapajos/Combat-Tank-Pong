@@ -177,7 +177,7 @@ class Game:
     def collision_bullet_tank_2(self):
         global factmulti1
         for bullets in self.bullets_2:
-            if self.rect_tk2.x - 35 < bullets.rect.x < self.rect_tk2.x + 35 and self.rect_tk2.y < bullets.rect.y + 35 < self.rect_tk2.y + 35:
+            if self.rect_tk2.x - 25 < bullets.rect.x < self.rect_tk2.x + 25 and self.rect_tk2.y < bullets.rect.y + 25 < self.rect_tk2.y + 25:
                 bullets.kill()
                 self.score_p1 += 1
             for i in obs_list:
@@ -189,9 +189,10 @@ class Game:
     def collision_bullet_tank_1(self):
         global factmulti2
         for bullets in self.bullets_1:
-            if self.rect_tk1.x - 35 < bullets.rect.x < self.rect_tk1.x + 35 and self.rect_tk1.y < bullets.rect.y + 35 < self.rect_tk1.y + 35:
+            if self.rect_tk1.x - 25 < bullets.rect.x < self.rect_tk1.x + 25 and self.rect_tk1.y < bullets.rect.y + 25 < self.rect_tk1.y + 25:
                 bullets.kill()
                 self.score_p2 += 1
+                #Tank1.rot_1(Tank1)
             for i in obs_list:
                 if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
                         math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \

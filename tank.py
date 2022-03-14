@@ -14,11 +14,12 @@ angle_2 = 1
 ismoving = False
 
 image_tk1 = pygame.image.load("img/tank_p1.png")
-rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
+rect_tk1 = image_tk1.get_rect(center=(50 + add_x1, 300 + add_y1))
 image_tk2 = pygame.image.load("img/tank_p2.png")
-rect_tk2 = image_tk2.get_rect(center=(900 - add_x2, 324 - add_y2))
+rect_tk2 = image_tk2.get_rect(center=(700 - add_x2, 300 - add_y2))
 colide1 = False
 colide2 = False
+arrow_spin = 0
 
 
 class Tank1:
@@ -42,6 +43,21 @@ class Tank1:
             ismoving = False
             add_x1 += 3 * math.cos(numpy.radians(degrees_tk1))
             add_y1 += 3 * (-math.sin(numpy.radians(degrees_tk1)))
+
+    def rot_1(self):
+      global arrow_spin
+
+      arrow_spin +=1
+
+
+      copy = image_tk1.copy()
+
+      for i in range(4):
+
+        copy = pygame.transform.rotate(copy,arrow_spin)
+
+        screen.blit(copy,(90+1*120,346))
+
 
     def tank_1_limit(self):
         global add_y1, add_x1, colide1, collide, ismoving
