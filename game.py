@@ -181,9 +181,10 @@ class Game:
                 bullets.kill()
                 self.score_p1 += 1
             for i in obs_list:
-                if i.x < bullets.rect.x < i.x and i.y < bullets.rect.y < i.y:
-                     print(f"Bala 1 colidiu com {i.x} e {i.y}")
-                     factmulti1 = -1
+                if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
+                        math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
+                        math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
+                    factmulti1 *= -1
 
     def collision_bullet_tank_1(self):
         global factmulti2
@@ -192,9 +193,10 @@ class Game:
                 bullets.kill()
                 self.score_p2 += 1
             for i in obs_list:
-                if i.x < bullets.rect.x < i.x and i.y < bullets.rect.y < i.y:
-                     print(f"Bala 2 colidiu com {i.x} e {i.y}")
-                     factmulti2 = -1
+                if math.sqrt((i.x + (i.w/2) - bullets.rect.x)**2 + (i.y + (i.h/2) - bullets.rect.y)**2) <= 20 or \
+                        math.sqrt((i.x + (i.w) - bullets.rect.x) ** 2 + (i.y + (i.h) - bullets.rect.y) ** 2) <= 20 or \
+                        math.sqrt((i.x - bullets.rect.x) ** 2 + (i.y - bullets.rect.y) ** 2) <= 20:
+                    factmulti2 *= -1
 
     # Function to destroy bullets that pass the screen
     def destroy_bullets(self):
