@@ -39,7 +39,7 @@ from config import (
 from tank import (
     Tank
 )
-from shot_angle import Shot_angle, Bullet_1, Bullet_2
+from shot_angle import Shot_angle, Bullet
 import math
 import numpy
 
@@ -65,8 +65,8 @@ class Game:
         self.cool_down_counter_2 = 0
         self.score_p1 = 0
         self.score_p2 = 0
-        self.rect_tk1 = Shot_angle.shot_angle_1(Shot_angle)
-        self.rect_tk2 = Shot_angle.shot_angle_2(Shot_angle)
+        self.rect_tk1 = Shot_angle.shot_angle(Shot_angle, 1)
+        self.rect_tk2 = Shot_angle.shot_angle(Shot_angle, 2)
 
         while self.menu_stats:
             screen.fill(Colors.WHITE)
@@ -128,8 +128,7 @@ class Game:
                 elif event.key == pygame.K_e and self.cool_down_counter_1 == 0:
                     sounds = pygame.mixer.Sound("sounds/tankshoot.wav")
                     sounds.play()
-                    self.rect_tk1 = Shot_angle.shot_angle_1(Shot_angle)
-                    self.bullets_2.add(Bullet_2(self.rect_tk1.center))
+                    self.bullets_2.add(Bullet(self.rect_tk1.center))
                     self.colision_1 = 0
                     self.cool_down_counter_1 += 1
                     factmulti1 = 1
@@ -138,8 +137,7 @@ class Game:
                 ):
                     sounds = pygame.mixer.Sound("sounds/tankshoot.wav")
                     sounds.play()
-                    self.rect_tk2 = Shot_angle.shot_angle_2(Shot_angle)
-                    self.bullets_1.add(Bullet_1(self.rect_tk2.center))
+                    self.bullets_1.add(Bullet(self.rect_tk2.center))
                     self.colision_2 = 0
                     self.cool_down_counter_2 += 1
                     factmulti2 = 1
@@ -206,20 +204,21 @@ class Game:
 
     # Draw e moviment the bullets
     def draw_bullets(self):
-        global factmulti
+        self.rect_tk1 = Shot_angle.shot_angle(Shot_angle, 1)
+        self.rect_tk2 = Shot_angle.shot_angle(Shot_angle, 2)
         self.bullets_1.draw(screen)
         self.bullets_2.draw(screen)
-        self.bullets_1.update(factmulti2)
-        self.bullets_2.update(factmulti1)
+        self.bullets_1.update(factmulti2, 1)
+        self.bullets_2.update(factmulti1, 2)
 
     def collision_bullet_tank_2(self):
         global factmulti1
         for bullets in self.bullets_2:
             if (
-                self.rect_tk2.x - 25 < bullets.rect.x < self.rect_tk2.x + 25
+                self.rect_tk2.x - 10 < bullets.rect.x < self.rect_tk2.x + 50
                 and self.rect_tk2.y
-                < bullets.rect.y + 25
-                < self.rect_tk2.y + 25
+                < bullets.rect.y + 10
+                < self.rect_tk2.y + 10
             ):
                 bullets.kill()
                 self.score_p1 += 1
@@ -264,10 +263,10 @@ class Game:
         global factmulti2
         for bullets in self.bullets_1:
             if (
-                self.rect_tk1.x - 25 < bullets.rect.x < self.rect_tk1.x + 25
+                self.rect_tk1.x - 50 < bullets.rect.x < self.rect_tk1.x + 50
                 and self.rect_tk1.y
-                < bullets.rect.y + 25
-                < self.rect_tk1.y + 25
+                < bullets.rect.y + 40
+                < self.rect_tk1.y + 40
             ):
                 bullets.kill()
                 self.score_p2 += 1
