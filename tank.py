@@ -22,18 +22,23 @@ colide2 = False
 arrow_spin = 0
 
 
-class Tank1:
-    def __init__(self, velocity):
-        global rect_tk1, coords_tk1
-        self.velocity = velocity
+class Tank:
+    def __init__(self):
+        global rect_tk1, rect_tk2
         image_tk1 = pygame.transform.rotate(
             pygame.image.load("img/tank_p1.png"), degrees_tk1
         )
         rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
         screen.blit(image_tk1, rect_tk1)
         rect_tk1.topleft = [rect_tk1.x + 18, rect_tk1.y + 18]
+        image_tk2 = pygame.transform.rotate(
+            pygame.image.load("img/tank_p2.png"), degrees_tk2
+        )
+        rect_tk2 = image_tk2.get_rect(center=(900 - add_x2, 324 - add_y2))
+        screen.blit(image_tk2, rect_tk2)
+        rect_tk2.topleft = [rect_tk2.x + 9, rect_tk2.y + 18]
 
-    def movement(self):
+    def movement_tk1(self):
 
         global degrees_tk1, add_x1, add_y1, colide1, ismoving
         if pygame.key.get_pressed()[pygame.K_d]:
@@ -45,18 +50,24 @@ class Tank1:
             add_x1 += 3 * math.cos(numpy.radians(degrees_tk1))
             add_y1 += 3 * (-math.sin(numpy.radians(degrees_tk1)))
 
-    def rot_1(self):
-        global arrow_spin
+        rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
 
-        arrow_spin += 1
+        return (degrees_tk1, rect_tk1)
 
-        copy = image_tk1.copy()
+    def movement_tk2(self):
+        global degrees_tk2, add_x2, add_y2, ismoving
+        if pygame.key.get_pressed()[pygame.K_RIGHT]:
+            degrees_tk2 -= 3
+        if pygame.key.get_pressed()[pygame.K_LEFT]:
+            degrees_tk2 += 3
+        if pygame.key.get_pressed()[pygame.K_UP] and colide2 is False:
+            ismoving = True
+            add_x2 += 3 * math.cos(numpy.radians(degrees_tk2))
+            add_y2 += 3 * (-math.sin(numpy.radians(degrees_tk2)))
 
-        for i in range(4):
+        rect_tk2 = image_tk2.get_rect(center=(900 - add_x2, 324 - add_y2))
 
-            copy = pygame.transform.rotate(copy, arrow_spin)
-
-            screen.blit(copy, (90 + 1 * 120, 346))
+        return (degrees_tk2, rect_tk2)
 
     def tank_1_limit(self):
         global add_y1, add_x1, colide1, collide, ismoving
@@ -97,29 +108,6 @@ class Tank1:
             if abs(rect_tk1.right - rect_tk2.left) < 10:
                 add_x1 += -1 * 12 * math.cos(numpy.radians(degrees_tk1))
                 add_y1 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk1)))
-
-
-class Tank2:
-    def __init__(self, velocity):
-        global rect_tk2
-        self.velocity = velocity
-        image_tk2 = pygame.transform.rotate(
-            pygame.image.load("img/tank_p2.png"), degrees_tk2
-        )
-        rect_tk2 = image_tk2.get_rect(center=(900 - add_x2, 324 - add_y2))
-        screen.blit(image_tk2, rect_tk2)
-        rect_tk2.topleft = [rect_tk2.x + 9, rect_tk2.y + 18]
-
-    def movement(self):
-        global degrees_tk2, add_x2, add_y2, ismoving
-        if pygame.key.get_pressed()[pygame.K_RIGHT]:
-            degrees_tk2 -= 3
-        if pygame.key.get_pressed()[pygame.K_LEFT]:
-            degrees_tk2 += 3
-        if pygame.key.get_pressed()[pygame.K_UP] and colide2 is False:
-            ismoving = True
-            add_x2 += 3 * math.cos(numpy.radians(degrees_tk2))
-            add_y2 += 3 * (-math.sin(numpy.radians(degrees_tk2)))
 
     def tank_2_limit(self):
         global add_y2, add_x2, colide2, collide, ismoving
@@ -162,50 +150,3 @@ class Tank2:
                 add_x2 += -1 * 12 * math.cos(numpy.radians(degrees_tk2))
                 add_y2 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk2)))
 
-
-class Bullet_1(pygame.sprite.Sprite):
-    def __init__(self, pos):
-        super().__init__()
-        self.image = pygame.Surface((5, 5))
-        self.image.fill(Colors.WHITE)
-        self.rect = self.image.get_rect(center=pos)
-        self.speed_x = 3
-        self.speed_y = 3
-
-    def update(self, factmulti):
-        self.rect.x -= (
-            self.speed_x * math.cos(numpy.radians(angle_2)) * factmulti
-        )
-        self.rect.y -= (
-            self.speed_y * (-math.sin(numpy.radians(angle_2))) * factmulti
-        )
-
-
-class Bullet_2(pygame.sprite.Sprite):
-    def __init__(self, pos):
-        super().__init__()
-        self.image = pygame.Surface((5, 5))
-        self.image.fill(Colors.WHITE)
-        self.rect = self.image.get_rect(center=pos)
-        self.speed_x = 3
-        self.speed_y = 3
-
-    def update(self, factmulti):
-        self.rect.x += (
-            self.speed_x * math.cos(numpy.radians(angle_1)) * factmulti
-        )
-        self.rect.y += (
-            self.speed_y * (-math.sin(numpy.radians(angle_1))) * factmulti
-        )
-
-
-def shot_angle_1():
-    global angle_1
-    angle_1 = degrees_tk1
-    return rect_tk1
-
-
-def shot_angle_2():
-    global angle_2
-    angle_2 = degrees_tk2
-    return rect_tk2

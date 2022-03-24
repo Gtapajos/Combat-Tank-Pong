@@ -37,14 +37,9 @@ from config import (
     factmulti2,
 )
 from tank import (
-    Bullet_1,
-    Bullet_2,
-    Tank1,
-    Tank2,
-    shot_angle_1,
-    shot_angle_2,
-    degrees_tk1,
+    Tank
 )
+from shot_angle import Shot_angle, Bullet_1, Bullet_2
 import math
 import numpy
 
@@ -70,8 +65,8 @@ class Game:
         self.cool_down_counter_2 = 0
         self.score_p1 = 0
         self.score_p2 = 0
-        self.rect_tk1 = shot_angle_1()
-        self.rect_tk2 = shot_angle_2()
+        self.rect_tk1 = Shot_angle.shot_angle_1(Shot_angle)
+        self.rect_tk2 = Shot_angle.shot_angle_2(Shot_angle)
 
         while self.menu_stats:
             screen.fill(Colors.WHITE)
@@ -133,7 +128,7 @@ class Game:
                 elif event.key == pygame.K_e and self.cool_down_counter_1 == 0:
                     sounds = pygame.mixer.Sound("sounds/tankshoot.wav")
                     sounds.play()
-                    self.rect_tk1 = shot_angle_1()
+                    self.rect_tk1 = Shot_angle.shot_angle_1(Shot_angle)
                     self.bullets_2.add(Bullet_2(self.rect_tk1.center))
                     self.colision_1 = 0
                     self.cool_down_counter_1 += 1
@@ -143,7 +138,7 @@ class Game:
                 ):
                     sounds = pygame.mixer.Sound("sounds/tankshoot.wav")
                     sounds.play()
-                    self.rect_tk2 = shot_angle_2()
+                    self.rect_tk2 = Shot_angle.shot_angle_2(Shot_angle)
                     self.bullets_1.add(Bullet_1(self.rect_tk2.center))
                     self.colision_2 = 0
                     self.cool_down_counter_2 += 1
@@ -183,12 +178,11 @@ class Game:
         pygame.draw.rect(screen, Colors.YELLOW, obs_26)
 
     def tanks_draw_move(self):
-        Tank1(3)
-        Tank1.movement(Tank1)
-        Tank1.tank_1_limit(Tank1)
-        Tank2(3)
-        Tank2.movement(Tank2)
-        Tank2.tank_2_limit(Tank2)
+        Tank()
+        Tank.movement_tk1(Tank)
+        Tank.tank_1_limit(Tank)
+        Tank.movement_tk2(Tank)
+        Tank.tank_2_limit(Tank)
 
     def draw_scores(self):
         font = pygame.font.Font("img/upheavtt.ttf", 50)
