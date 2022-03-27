@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 
-import tank
 from config import (
     Constants,
     Colors,
@@ -39,9 +38,8 @@ from config import (
 from tank import (
     Tank
 )
-from shot_angle import Shot_angle, Bullet
+from bullet import Bullet
 import math
-import numpy
 
 pygame.init()
 # Screen
@@ -65,8 +63,8 @@ class Game:
         self.cool_down_counter_2 = 0
         self.score_p1 = 0
         self.score_p2 = 0
-        self.rect_tk1 = Shot_angle.shot_angle(Shot_angle, 1)
-        self.rect_tk2 = Shot_angle.shot_angle(Shot_angle, 2)
+        self.rect_tk1 = Bullet.shot_angle(Bullet, 1)
+        self.rect_tk2 = Bullet.shot_angle(Bullet, 2)
 
         while self.menu_stats:
             screen.fill(Colors.WHITE)
@@ -204,8 +202,8 @@ class Game:
 
     # Draw e moviment the bullets
     def draw_bullets(self):
-        self.rect_tk1 = Shot_angle.shot_angle(Shot_angle, 1)
-        self.rect_tk2 = Shot_angle.shot_angle(Shot_angle, 2)
+        self.rect_tk1 = Bullet.shot_angle(Bullet, 1)
+        self.rect_tk2 = Bullet.shot_angle(Bullet, 2)
         self.bullets_1.draw(screen)
         self.bullets_2.draw(screen)
         self.bullets_1.update(factmulti2, 1)

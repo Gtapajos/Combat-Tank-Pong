@@ -1,5 +1,4 @@
 import pygame
-import tank
 import math
 import numpy
 from tank import Tank
@@ -7,17 +6,6 @@ from config import Colors
 
 angle_1 = 1
 angle_2 = 1
-
-class Shot_angle:
-    def shot_angle(self, type_tank):
-        if type_tank == 1:
-            global angle_1
-            angle_1 = Tank.movement_tk1(Tank)[0]
-            return Tank.movement_tk1(Tank)[1]
-        elif type_tank == 2:
-            global angle_2
-            angle_2 = Tank.movement_tk2(Tank)[0]
-            return Tank.movement_tk2(Tank)[1]
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos):
@@ -43,3 +31,13 @@ class Bullet(pygame.sprite.Sprite):
             self.rect.y += (
                 self.speed_y * (-math.sin(numpy.radians(angle_1))) * factmulti
             )
+
+    def shot_angle(self, type_tank):
+        if type_tank == 1:
+            global angle_1
+            angle_1 = Tank.movement_tk1(Tank)[0]
+            return Tank.movement_tk1(Tank)[1]
+        elif type_tank == 2:
+            global angle_2
+            angle_2 = Tank.movement_tk2(Tank)[0]
+            return Tank.movement_tk2(Tank)[1]

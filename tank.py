@@ -1,5 +1,5 @@
 import pygame
-from config import Colors, Constants, screen, obs_list
+from config import screen, obs_list
 import math
 import numpy
 
