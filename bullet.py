@@ -2,7 +2,7 @@ import pygame
 import math
 import numpy
 from tank import Tank
-from config import Colors
+from config import Config
 
 angle_1 = 1
 angle_2 = 1
@@ -11,7 +11,7 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.image = pygame.Surface((5, 5))
-        self.image.fill(Colors.WHITE)
+        self.image.fill(Config.Colors.WHITE)
         self.rect = self.image.get_rect(center=pos)
         self.speed_x = 3
         self.speed_y = 3

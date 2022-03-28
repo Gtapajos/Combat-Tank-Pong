@@ -1,6 +1,6 @@
 import pygame
 import game
-from config import game_loop, Constants
+from config import Config
 
 
 # game clock (FPS)
@@ -8,7 +8,7 @@ game_clock = pygame.time.Clock()
 game = game.Game()
 game.menu()
 
-while game_loop:
+while Config.game_loop:
     game.main()
     game.pause()
     game.draw_obstacles()
@@ -20,5 +20,5 @@ while game_loop:
     game.destroy_bullets()
     game.cooldown_bullet_1()
     game.cooldown_bullet_2()
-    game_clock.tick(Constants.CLOCK_TICK)
+    game_clock.tick(Config.Constants.CLOCK_TICK)
     pygame.display.update()

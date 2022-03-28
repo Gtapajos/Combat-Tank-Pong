@@ -1,5 +1,6 @@
 import pygame
-from config import screen, obs_list
+
+from config import Config
 import math
 import numpy
 
@@ -29,13 +30,13 @@ class Tank:
             pygame.image.load("img/tank_p1.png"), degrees_tk1
         )
         rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
-        screen.blit(image_tk1, rect_tk1)
+        Config.screen.blit(image_tk1, rect_tk1)
         rect_tk1.topleft = [rect_tk1.x + 18, rect_tk1.y + 18]
         image_tk2 = pygame.transform.rotate(
             pygame.image.load("img/tank_p2.png"), degrees_tk2
         )
         rect_tk2 = image_tk2.get_rect(center=(900 - add_x2, 324 - add_y2))
-        screen.blit(image_tk2, rect_tk2)
+        Config.screen.blit(image_tk2, rect_tk2)
         rect_tk2.topleft = [rect_tk2.x + 9, rect_tk2.y + 18]
 
     def movement_tk1(self):
@@ -88,7 +89,7 @@ class Tank:
         if add_x1 >= 880:
             add_x1 -= 50
 
-        for e in obs_list:
+        for e in Config.obs_list:
             if rect_tk1.colliderect(e):
                 colide1 = True
                 add_x1 += -1 * 15 * math.cos(numpy.radians(degrees_tk1))
@@ -128,7 +129,7 @@ class Tank:
         if add_x2 >= 900:
             add_x2 -= 50
 
-        for e in obs_list:
+        for e in Config.obs_list:
             if rect_tk2.colliderect(e):
                 colide2 = True
                 add_x2 += -1 * 15 * math.cos(numpy.radians(degrees_tk2))

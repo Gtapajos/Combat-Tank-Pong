@@ -1,40 +1,7 @@
 import pygame
 from pygame.locals import *
 
-from config import (
-    Constants,
-    Colors,
-    screen,
-    obs_1,
-    obs_2,
-    obs_3,
-    obs_4,
-    obs_5,
-    obs_6,
-    obs_7,
-    obs_8,
-    obs_9,
-    obs_10,
-    obs_11,
-    obs_12,
-    obs_13,
-    obs_14,
-    obs_15,
-    obs_16,
-    obs_17,
-    obs_18,
-    obs_19,
-    obs_20,
-    obs_21,
-    obs_22,
-    obs_23,
-    obs_24,
-    obs_25,
-    obs_26,
-    obs_list,
-    factmulti1,
-    factmulti2,
-)
+from config import Config
 from tank import Tank
 from bullet import Bullet
 import math
@@ -51,8 +18,8 @@ pygame.mixer.music.play(-1)
 class Game:
     def menu(self):
         self.font = pygame.font.Font("img/upheavtt.ttf", 50)
-        play_txt = self.font.render("Press Enter to Play", True, Colors.WHITE)
-        quit_txt = self.font.render("Press ESC to Quit", True, Colors.WHITE)
+        play_txt = self.font.render("Press Enter to Play", True, Config.Colors.WHITE)
+        quit_txt = self.font.render("Press ESC to Quit", True, Config.Colors.WHITE)
         self.menu_stats = True
         self.paused = False
         self.bullets_1 = pygame.sprite.Group()
@@ -65,11 +32,11 @@ class Game:
         self.rect_tk2 = Bullet.shot_angle(Bullet, 2)
 
         while self.menu_stats:
-            screen.fill(Colors.WHITE)
+            Config.screen.fill(Config.Colors.WHITE)
             menu_img = pygame.image.load("img/menu_bg.jpg")
-            screen.blit(menu_img, (0, 0))
-            screen.blit(play_txt, ((Constants.SCREEN_SIZE[1] / 2) - 100, 300))
-            screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2) - 100, 400))
+            Config.screen.blit(menu_img, (0, 0))
+            Config.screen.blit(play_txt, ((Config.Constants.SCREEN_SIZE[1] / 2) - 100, 300))
+            Config.screen.blit(quit_txt, ((Config.Constants.SCREEN_SIZE[1] / 2) - 100, 400))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -81,7 +48,7 @@ class Game:
                         exit()
                     if event.key == pygame.K_RETURN:
                         self.menu_stats = False
-            pygame.time.Clock().tick(Constants.CLOCK_TICK)
+            pygame.time.Clock().tick(Config.Constants.CLOCK_TICK)
             pygame.display.update()
 
     def pause(self):
@@ -98,17 +65,17 @@ class Game:
                         self.paused = False
                         pygame.mixer.music.unpause()
 
-            screen.fill(Colors.BLACK)
+            Config.screen.fill(Config.Colors.BLACK)
             paused_txt = self.font.render(
-                "Press P to Unpaused", True, Colors.GREEN
+                "Press P to Unpaused", True, Config.Colors.GREEN
             )
             quit_txt = self.font.render(
-                "Press ESC to Quit", True, Colors.GREEN
+                "Press ESC to Quit", True, Config.Colors.GREEN
             )
-            screen.blit(paused_txt, ((Constants.SCREEN_SIZE[1] / 2) - 30, 300))
-            screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2) - 30, 400))
+            Config.screen.blit(paused_txt, ((Config.Constants.SCREEN_SIZE[1] / 2) - 30, 300))
+            Config.screen.blit(quit_txt, ((Config.Constants.SCREEN_SIZE[1] / 2) - 30, 400))
 
-            pygame.time.Clock().tick(Constants.CLOCK_TICK)
+            pygame.time.Clock().tick(Config.Constants.CLOCK_TICK)
             pygame.display.update()
 
     def main(self):
@@ -142,34 +109,34 @@ class Game:
                     exit()
 
     def draw_obstacles(self):
-        screen.fill(Colors.BROWN)
+        Config.screen.fill(Config.Colors.BROWN)
 
-        pygame.draw.rect(screen, Colors.YELLOW, obs_1)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_2)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_3)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_4)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_5)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_6)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_7)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_8)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_9)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_10)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_11)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_12)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_13)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_14)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_15)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_16)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_17)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_18)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_19)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_20)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_21)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_22)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_23)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_24)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_25)
-        pygame.draw.rect(screen, Colors.YELLOW, obs_26)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_1)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_2)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_3)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_4)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_5)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_6)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_7)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_8)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_9)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_10)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_11)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_12)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_13)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_14)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_15)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_16)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_17)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_18)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_19)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_20)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_21)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_22)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_23)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_24)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_25)
+        pygame.draw.rect(Config.screen, Config.Colors.YELLOW, Config.obs_26)
 
     def tanks_draw_move(self):
         Tank()
@@ -180,32 +147,32 @@ class Game:
 
     def draw_scores(self):
         font = pygame.font.Font("img/upheavtt.ttf", 50)
-        score_txt = font.render(str(self.score_p1), True, Colors.GREEN)
-        screen.blit(score_txt, (250, 10))
+        score_txt = font.render(str(self.score_p1), True, Config.Colors.GREEN)
+        Config.screen.blit(score_txt, (250, 10))
         font = pygame.font.Font("img/upheavtt.ttf", 50)
-        score_txt = font.render(str(self.score_p2), True, Colors.BLUE)
-        screen.blit(score_txt, (750, 10))
+        score_txt = font.render(str(self.score_p2), True, Config.Colors.BLUE)
+        Config.screen.blit(score_txt, (750, 10))
 
-        quit_txt = self.font.render("Press ESC to Quit", True, Colors.GREEN)
+        quit_txt = self.font.render("Press ESC to Quit", True, Config.Colors.GREEN)
 
         if self.score_p1 >= 5:
             victory1_img = pygame.image.load("img/p1win.png")
-            screen.blit(victory1_img, (375, 225))
-            screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2 - 45), 600))
+            Config.screen.blit(victory1_img, (375, 225))
+            Config.screen.blit(quit_txt, ((Config.Constants.SCREEN_SIZE[1] / 2 - 45), 600))
 
         elif self.score_p2 >= 5:
             victory2_img = pygame.image.load("img/p2win.png")
-            screen.blit(victory2_img, (375, 225))
-            screen.blit(quit_txt, ((Constants.SCREEN_SIZE[1] / 2 - 45), 600))
+            Config.screen.blit(victory2_img, (375, 225))
+            Config.screen.blit(quit_txt, ((Config.Constants.SCREEN_SIZE[1] / 2 - 45), 600))
 
     # Draw e moviment the bullets
     def draw_bullets(self):
         self.rect_tk1 = Bullet.shot_angle(Bullet, 1)
         self.rect_tk2 = Bullet.shot_angle(Bullet, 2)
-        self.bullets_1.draw(screen)
-        self.bullets_2.draw(screen)
-        self.bullets_1.update(factmulti2, 1)
-        self.bullets_2.update(factmulti1, 2)
+        self.bullets_1.draw(Config.screen)
+        self.bullets_2.draw(Config.screen)
+        self.bullets_1.update(Config.factmulti2, 1)
+        self.bullets_2.update(Config.factmulti1, 2)
 
     def collision_bullet_tank_2(self):
         global factmulti1
@@ -231,7 +198,7 @@ class Game:
                 factmulti1 *= -1
                 self.colision_1 += 1
             else:
-                for i in obs_list:
+                for i in Config.obs_list:
                     if (
                         math.sqrt(
                             (i.x + (i.w / 2) - bullets.rect.x) ** 2
@@ -280,7 +247,7 @@ class Game:
                 factmulti2 *= -1
                 self.colision_2 += 1
             else:
-                for i in obs_list:
+                for i in Config.obs_list:
                     if (
                         math.sqrt(
                             (i.x + (i.w / 2) - bullets.rect.x) ** 2
@@ -315,13 +282,13 @@ class Game:
     # Shots cooldown function
 
     def cooldown_bullet_1(self):
-        if self.cool_down_counter_1 >= Constants.COOLDOWN_SHOT:
+        if self.cool_down_counter_1 >= Config.Constants.COOLDOWN_SHOT:
             self.cool_down_counter_1 = 0
         elif self.cool_down_counter_1 > 0:
             self.cool_down_counter_1 += 1
 
     def cooldown_bullet_2(self):
-        if self.cool_down_counter_2 >= Constants.COOLDOWN_SHOT:
+        if self.cool_down_counter_2 >= Config.Constants.COOLDOWN_SHOT:
             self.cool_down_counter_2 = 0
         elif self.cool_down_counter_2 > 0:
             self.cool_down_counter_2 += 1
