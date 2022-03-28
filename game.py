@@ -35,9 +35,7 @@ from config import (
     factmulti1,
     factmulti2,
 )
-from tank import (
-    Tank
-)
+from tank import Tank
 from bullet import Bullet
 import math
 

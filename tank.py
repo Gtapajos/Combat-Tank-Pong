@@ -42,13 +42,13 @@ class Tank:
 
         global degrees_tk1, add_x1, add_y1, colide1, ismoving
         if pygame.key.get_pressed()[pygame.K_d]:
-            degrees_tk1 -= 3
+            degrees_tk1 -= 1
         if pygame.key.get_pressed()[pygame.K_a]:
-            degrees_tk1 += 3
+            degrees_tk1 += 1
         if pygame.key.get_pressed()[pygame.K_w] and colide1 is False:
             ismoving = False
-            add_x1 += 3 * math.cos(numpy.radians(degrees_tk1))
-            add_y1 += 3 * (-math.sin(numpy.radians(degrees_tk1)))
+            add_x1 += math.cos(numpy.radians(degrees_tk1))
+            add_y1 += -math.sin(numpy.radians(degrees_tk1))
 
         rect_tk1 = image_tk1.get_rect(center=(90 + add_x1, 324 + add_y1))
 
@@ -57,13 +57,13 @@ class Tank:
     def movement_tk2(self):
         global degrees_tk2, add_x2, add_y2, ismoving
         if pygame.key.get_pressed()[pygame.K_RIGHT]:
-            degrees_tk2 -= 3
+            degrees_tk2 -= 1
         if pygame.key.get_pressed()[pygame.K_LEFT]:
-            degrees_tk2 += 3
+            degrees_tk2 += 1
         if pygame.key.get_pressed()[pygame.K_UP] and colide2 is False:
             ismoving = True
-            add_x2 += 3 * math.cos(numpy.radians(degrees_tk2))
-            add_y2 += 3 * (-math.sin(numpy.radians(degrees_tk2)))
+            add_x2 += math.cos(numpy.radians(degrees_tk2))
+            add_y2 += -math.sin(numpy.radians(degrees_tk2))
 
         rect_tk2 = image_tk2.get_rect(center=(900 - add_x2, 324 - add_y2))
 
@@ -149,4 +149,3 @@ class Tank:
             if abs(rect_tk2.right - rect_tk1.left) < 10:
                 add_x2 += -1 * 12 * math.cos(numpy.radians(degrees_tk2))
                 add_y2 += -1 * 12 * (-math.sin(numpy.radians(degrees_tk2)))
-
